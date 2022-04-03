@@ -1,11 +1,15 @@
 import React, { useState } from 'react'
 import Card from './Card';
 import axios from 'axios';
+// Key api de google: AIzaSyCkBIZAWDiUxNe7HcPY_pdya4o8DsnAkU0
 const Main = () => {
   const [search, setSearch]=useState("");
+  const[bookData,setBookData]=useState("");
   const searchBook=(evt)=>{
     if(evt.key=== "Enter"){
-      console.log("Hello;");
+      axios.get('https://www.googleapis.com/books/v1/volumes?q= '+search+' &key=AIzaSyCkBIZAWDiUxNe7HcPY_pdya4o8DsnAkU0')
+      .then(res=>console.log(res))
+      .catch(err=>console.log(err))
     }
   }
   return (
@@ -27,15 +31,9 @@ const Main = () => {
       </div>
 
       <div className='container'>
-        <Card/>
-        <Card/>
-        <Card/>
-        <Card/>
-        <Card/>
-        <Card/>
-        <Card/>
-        <Card/>
-
+        {
+            <Card book={bookData} />
+        }
       </div>
     </>
   )
